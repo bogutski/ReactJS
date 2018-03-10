@@ -4,7 +4,10 @@ class Header extends Component {
   render() {
     return (
       <div>
-        {this.props.siteName}
+        {this.props.sName.map(el =>
+          <p><a href={el.link} key={el.link}>{el.name}</a></p>
+        )
+        }
       </div>
     );
   }

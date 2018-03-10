@@ -4,7 +4,7 @@ class Content extends Component {
   render() {
     return (
       <div>
-        -Content-
+        <p>Content</p>
       </div>
     );
   }

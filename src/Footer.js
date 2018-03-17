@@ -4,7 +4,7 @@ class Footer extends Component {
   render() {
     return (
       <div>
-        © {this.props.year} React JS
+        © {this.props.year} ReactJS by {this.props.authorName}
       </div>
     );
   }

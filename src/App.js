@@ -14,7 +14,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      open: false,
+      open: true,
       cnt: 0,
     }
   }
@@ -40,14 +40,19 @@ class App extends Component {
             )}>
           Show/Hide content
         </button>
+        <p>Button clicks: {this.state.cnt}</p>
 
         {this.state.open ?
           <Content /> :
           <p>No Content</p>
         }
-        <p>Button clicks: {this.state.cnt}</p>
-        <div className="footer">
-          <Footer year={yearNow()}/>
+
+
+        <div className="container-fluid">
+          <Footer
+            year={yearNow()}
+            authorName="Arthur Senko"
+          />
         </div>
 
       </div>

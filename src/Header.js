@@ -5,7 +5,7 @@ class Header extends Component {
     return (
       <div>
         {this.props.sName.map(el =>
-          <p><a href={el.link} key={el.link}>{el.name}</a></p>
+          <p><a href={el.link} id={el.link}>{el.name}</a></p>
         )
         }
       </div>

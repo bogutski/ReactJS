@@ -33,7 +33,7 @@ class App extends Component {
       <div className="App">
         <Header sName={sn}/>
 
-        <button type="button" class="btn btn-primary btn-lg" onClick={() =>
+        <button type="button" className="btn btn-primary btn-lg" onClick={() =>
           this.setState(
             {
               open: !this.state.open,
@@ -44,7 +44,7 @@ class App extends Component {
             'REFRESH AND HIDE' :
             'SHOW'}
         </button>
-        <p className="p-3 mb-0"><h5>Button clicks counter: {this.state.cnt}</h5></p>
+        <p className="h5 p-3 mb-0">Button clicks counter: {this.state.cnt}</p>
 
         {this.state.open ?
           <Content /> :

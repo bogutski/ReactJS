@@ -7,11 +7,41 @@ class Content extends Component {
 
     this.state = {
       todoInput: '',
-      todoList: []
+      todoList: [],
+      edit: false,
     };
   }
 
   addTodo() {
+    const todoList = this.state.todoList;
+    todoList.push(this.state.todoInput);
+
+    this.setState({
+      todoList,
+      todoInput: '',
+    });
+  }
+
+  removeTodo(index) {
+    const todoList = this.state.todoList;
+    todoList.splice(index, 1);
+
+    this.setState({
+      todoList,
+    });
+  }
+
+  editTodo(index) {
+    const todoList = this.state.todoList;
+    const todoInput = todoList.slice(index, index+1);
+
+    this.setState({
+      todoList,
+      todoInput,
+    });
+  }
+
+  editButton() {
     const todoList = this.state.todoList;
     todoList.push(this.state.todoInput);
 
@@ -27,27 +57,41 @@ class Content extends Component {
 
         <div className="jumbotron p-2 mb-0">
           <p className="lead">This is a simple To Do List</p>
-          <hr className="my-3" />
+          <hr className="my-3"/>
 
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <ul>
-                {this.state.todoList.map(el => <li key={el}>{el}</li>)}
-              </ul>
-            </div>
-            <div className="col">
-              <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Enter a task" value={this.state.todoInput}
-                       onChange={(e) => this.setState({todoInput: e.target.value})}/>
-                <div className="input-group-append">
-                  <button onClick={() => this.addTodo()} className="btn btn-primary">Add</button>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <ul>
+                  {this.state.todoList.map(el =>
+                    <li key={this.state.todoList.id} className="pt-1">
+                      <div className="text-md-left">{el}
+                        <button
+                          onClick={() => this.editTodo(this.state.todoList.indexOf(el))}
+                          className="btn btn-light ml-2 align-self-end">
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => this.removeTodo(this.state.todoList.indexOf(el))}
+                          className="btn btn-secondary ml-2 align-self-end">
+                          Remove
+                        </button>
+                      </div>
+                    </li>)}
+                </ul>
+              </div>
+              <div className="col">
+                <div className="input-group mb-3">
+                  <input type="text" className="form-control" placeholder="Enter a task" value={this.state.todoInput}
+                         onChange={(e) => this.setState({todoInput: e.target.value})}/>
+                  <div className="input-group-append">
+                    <button onClick={() => this.addTodo()} className="btn btn-primary">Add</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-          <hr className="my-3" />
+          <hr className="my-3"/>
         </div>
       </div>
     );

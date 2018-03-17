@@ -24,7 +24,10 @@ class Content extends Component {
   render() {
     return (
       <div>
-        <p className="lead">This is a simple To Do List</p>
+
+        <div className="jumbotron p-2 mb-0">
+          <p className="lead">This is a simple To Do List</p>
+          <hr className="my-3" />
 
         <div className="container">
           <div className="row">
@@ -43,6 +46,8 @@ class Content extends Component {
               </div>
             </div>
           </div>
+        </div>
+          <hr className="my-3" />
         </div>
       </div>
     );

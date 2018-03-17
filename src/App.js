@@ -18,6 +18,7 @@ class App extends Component {
       cnt: 0,
     }
   }
+
   render() {
     const sn = [{
       link: 'https://artsenius.github.io/ReactJS',
@@ -32,28 +33,28 @@ class App extends Component {
       <div className="App">
         <Header sName={sn}/>
 
-        <button onClick={() =>
+        <button type="button" class="btn btn-primary btn-lg" onClick={() =>
           this.setState(
-            {open: !this.state.open,
-              cnt: this.state.cnt +1
+            {
+              open: !this.state.open,
+              cnt: this.state.cnt + 1
             }
-            )}>
-          Show/Hide content
+          )}>
+          {this.state.open ?
+            'REFRESH AND HIDE' :
+            'SHOW'}
         </button>
-        <p>Button clicks: {this.state.cnt}</p>
+        <p className="p-3 mb-0"><h5>Button clicks counter: {this.state.cnt}</h5></p>
 
         {this.state.open ?
           <Content /> :
-          <p>No Content</p>
+          <p className="h5 mb-3 jumbotron p-3">TO DO LIST HIDDEN</p>
         }
 
-
-        <div className="container-fluid">
-          <Footer
-            year={yearNow()}
-            authorName="Arthur Senko"
-          />
-        </div>
+        <Footer
+          year={yearNow()}
+          authorName="Arthur Senko"
+        />
 
       </div>
     );

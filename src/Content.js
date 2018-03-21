@@ -8,23 +8,26 @@ class Content extends Component {
     this.state = {
       todoInput: '',
       todoList: [],
-      edit: false,
+      editMode: false,
+      editedItemId: ''
     };
   }
 
   addTodo() {
     const todoList = this.state.todoList;
-    todoList.push(this.state.todoInput);
+    todoList.push({
+      id: this.uuidv4(),
+      name: this.state.todoInput
+    });
 
     this.setState({
       todoList,
       todoInput: '',
-    });
+    }, () => console.log(todoList));
   }
 
   removeTodo(index) {
-    const todoList = this.state.todoList;
-    todoList.splice(index, 1);
+    const todoList = this.state.todoList.filter(el => el.id !== index);
 
     this.setState({
       todoList,
@@ -32,23 +35,31 @@ class Content extends Component {
   }
 
   editTodo(index) {
-    const todoList = this.state.todoList;
-    const todoInput = todoList.slice(index, index+1);
+    const todoInput = this.state.todoList.filter(el => el.id === index)[0].name;
+    const editMode = !this.state.editMode;
 
     this.setState({
-      todoList,
       todoInput,
+      editMode,
+      editedItemId: index
     });
   }
 
   editButton() {
-    const todoList = this.state.todoList;
-    todoList.push(this.state.todoInput);
+    const todoList = this.state.todoList.forEach(el => el.id === this.state.editedItemId ? el.name = this.state.todoInput : el.name);
+    const editMode = !this.state.editMode;
+
 
     this.setState({
-      todoList,
       todoInput: '',
+      editMode
     });
+  }
+
+  uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (((c ^ crypto.getRandomValues(new Uint8Array(1))[0]) & 15) >> c / 4).toString(16)
+    )
   }
 
   render() {
@@ -64,15 +75,16 @@ class Content extends Component {
               <div className="col">
                 <ul>
                   {this.state.todoList.map(el =>
-                    <li key={this.state.todoList.id} className="pt-1">
-                      <div className="text-md-left">{el}
+                    <li key={el.id} className="pt-1">
+                      <div className="text-md-left">{el.name}
                         <button
-                          onClick={() => this.editTodo(this.state.todoList.indexOf(el))}
-                          className="btn btn-light ml-2 align-self-end">
+                          onClick={() => this.editTodo(el.id)}
+                          className="btn btn-light ml-2 align-self-end"
+                          disabled={this.state.editMode}>
                           Edit
                         </button>
                         <button
-                          onClick={() => this.removeTodo(this.state.todoList.indexOf(el))}
+                          onClick={() => this.removeTodo(el.id)}
                           className="btn btn-secondary ml-2 align-self-end">
                           Remove
                         </button>
@@ -85,7 +97,11 @@ class Content extends Component {
                   <input type="text" className="form-control" placeholder="Enter a task" value={this.state.todoInput}
                          onChange={(e) => this.setState({todoInput: e.target.value})}/>
                   <div className="input-group-append">
-                    <button onClick={() => this.addTodo()} className="btn btn-primary">Add</button>
+                    {this.state.editMode ?
+                      <button onClick={() => this.editButton()} className="btn btn-primary">Edit</button>
+                      :
+                      <button onClick={() => this.addTodo()} className="btn btn-primary">Add</button>
+                    }
                   </div>
                 </div>
               </div>

@@ -29,7 +29,7 @@ class Content extends Component {
     this.setState({
       todoList,
       todoInput: '',
-    }, () => console.log(todoList));
+    });
   }
 
   removeTodo(index) {

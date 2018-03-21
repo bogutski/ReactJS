@@ -15,41 +15,28 @@ class App extends Component {
 
     this.state = {
       open: true,
-      cnt: 0,
     }
   }
 
   render() {
-    const sn = [{
-      link: 'https://artsenius.github.io/ReactJS',
-      name: 'This website on GitHub Pages',
-    },
-      {
-        link: 'https://github.com/artsenius',
-        name: 'My GitHub',
-      }
-    ];
+
+
     return (
       <div className="App">
-        <Header sName={sn}/>
+        <Header/>
 
-        <button type="button" className="btn btn-primary btn-lg" onClick={() =>
-          this.setState(
-            {
-              open: !this.state.open,
-              cnt: this.state.cnt + 1
-            }
-          )}>
-          {this.state.open ?
-            'REFRESH AND HIDE' :
-            'SHOW'}
+        <button type="button" className="btn btn-primary btn-lg mb-2 mt-2" onClick={() => {
+          this.setState({
+            open: !this.state.open
+          })
+
+          }
+        }>
+          REFRESH THE LIST
         </button>
-        <p className="h5 p-3 mb-0">Button clicks counter: {this.state.cnt}</p>
 
-        {this.state.open ?
-          <Content /> :
-          <p className="h5 mb-3 jumbotron p-3">TO DO LIST HIDDEN</p>
-        }
+        {this.state.open ? <Content /> : <div><p className="h5">REFRESHING...</p>
+          <p className="h5">Click the button one more time</p></div>}
 
         <Footer
           year={yearNow()}

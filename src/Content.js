@@ -13,6 +13,12 @@ class Content extends Component {
     };
   }
 
+  _handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.state.editMode ? this.editButton() : this.addTodo();
+    }
+  };
+
   addTodo() {
     const todoList = this.state.todoList;
     todoList.push({
@@ -46,7 +52,7 @@ class Content extends Component {
   }
 
   editButton() {
-    const todoList = this.state.todoList.forEach(el => el.id === this.state.editedItemId ? el.name = this.state.todoInput : el.name);
+    this.state.todoList.forEach(el => el.id === this.state.editedItemId ? el.name = this.state.todoInput : el.name);
     const editMode = !this.state.editMode;
 
 
@@ -95,6 +101,7 @@ class Content extends Component {
               <div className="col">
                 <div className="input-group mb-3">
                   <input type="text" className="form-control" placeholder="Enter a task" value={this.state.todoInput}
+                         onKeyPress={this._handleKeyPress}
                          onChange={(e) => this.setState({todoInput: e.target.value})}/>
                   <div className="input-group-append">
                     {this.state.editMode ?

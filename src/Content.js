@@ -91,7 +91,8 @@ class Content extends Component {
                         </button>
                         <button
                           onClick={() => this.removeTodo(el.id)}
-                          className="btn btn-secondary ml-2 align-self-end">
+                          className="btn btn-secondary ml-2 align-self-end"
+                          disabled={this.state.editMode}>
                           Remove
                         </button>
                       </div>

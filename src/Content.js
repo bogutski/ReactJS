@@ -80,7 +80,9 @@ class Content extends Component {
             <div className="row">
               <div className="col">
                 <ul>
-                  {this.state.todoList.map(el =>
+                  {this.state.todoList.length < 1 ?
+                    <div className="h6 text-left">TO DO LIST IS EMPTY</div> :
+                    this.state.todoList.map(el =>
                     <li key={el.id} className="pt-1">
                       <div className="text-md-left">{el.name}
                         <button

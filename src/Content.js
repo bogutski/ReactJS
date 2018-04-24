@@ -63,7 +63,7 @@ class Content extends Component {
   }
 
   uuidv4() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
       (((c ^ crypto.getRandomValues(new Uint8Array(1))[0]) & 15) >> c / 4).toString(16)
     )
   }
@@ -71,54 +71,50 @@ class Content extends Component {
   render() {
     return (
       <div>
-
-        <div className="jumbotron p-2 mb-0">
-          <p className="lead">This is a simple To Do List</p>
-          <hr className="my-3"/>
-
-          <div className="container">
-            <div className="row">
-              <div className="col">
-                <ul>
-                  {this.state.todoList.length < 1 ?
-                    <div className="h6 text-left">TO DO LIST IS EMPTY</div> :
-                    this.state.todoList.map(el =>
-                    <li key={el.id} className="pt-1">
-                      <div className="text-md-left">{el.name}
-                        <button
-                          onClick={() => this.editTodo(el.id)}
-                          className="btn btn-light ml-2 align-self-end"
-                          disabled={this.state.editMode}>
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => this.removeTodo(el.id)}
-                          className="btn btn-secondary ml-2 align-self-end"
-                          disabled={this.state.editMode}>
-                          Remove
-                        </button>
-                      </div>
-                    </li>)}
-                </ul>
-              </div>
-              <div className="col">
-                <div className="input-group mb-3">
-                  <input type="text" className="form-control" placeholder="Enter a task" value={this.state.todoInput}
-                         onKeyPress={this._handleKeyPress}
-                         onChange={(e) => this.setState({todoInput: e.target.value})}/>
-                  <div className="input-group-append">
-                    {this.state.editMode ?
-                      <button onClick={() => this.editButton()} className="btn btn-primary">Edit</button>
-                      :
-                      <button onClick={() => this.addTodo()} className="btn btn-primary">Add</button>
-                    }
-                  </div>
+        <table className="table-light m-2" width="98.5%">
+          <tr>
+            <td colSpan={3}>
+              <div className="input-group">
+                <input type="text" className="form-control" placeholder="Enter a task description" value={this.state.todoInput}
+                       onKeyPress={this._handleKeyPress}
+                       onChange={(e) => this.setState({todoInput: e.target.value})}/>
+                <div className="input-group-append">
+                  {this.state.editMode ?
+                    <button onClick={() => this.editButton()} className="btn btn-primary">Edit</button>
+                    :
+                    <button onClick={() => this.addTodo()} className="btn btn-primary">Add</button>
+                  }
                 </div>
               </div>
-            </div>
-          </div>
-          <hr className="my-3"/>
-        </div>
+            </td>
+          </tr>
+          {this.state.todoList.length < 1 ?
+            <tr>
+              <td colSpan={3}>TO DO LIST IS EMPTY</td>
+            </tr> :
+            this.state.todoList.map(el =>
+              <tr>
+              <td key={el.id} width="100%" className="text-left">
+                {el.name}
+                </td>
+                <td>
+                  <button
+                    onClick={() => this.editTodo(el.id)}
+                    className="btn btn-secondary m-1 align-self-end"
+                    disabled={this.state.editMode}>
+                    Edit
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => this.removeTodo(el.id)}
+                    className="btn btn-danger mt-1 mb-1 align-self-end"
+                    disabled={this.state.editMode}>
+                    Remove
+                  </button>
+                </td>
+              </tr>)}
+        </table>
       </div>
     );
   }
